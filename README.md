@@ -5,7 +5,7 @@ Destatis Table-Code `61241-0006`
 Power Query Formula
 ```
 let
-    Source = Json.Document(Web.Contents("https://www-genesis.destatis.de/genesisWS/rest/2020/data/table?username=DE717OZ104&password=Steinwerder*2023&name=61241-0006&area=all&compress=false&transpose=false&startyear=&endyear=&timeslices=&regionalvariable=&regionalkey=&classifyingvariable1=&classifyingkey1=&classifyingvariable2=&classifyingkey2=&classifyingvariable3=&classifyingkey3=&job=false&stand=&language=de")),
+    Source = Json.Document(Web.Contents("https://www-genesis.destatis.de/genesisWS/rest/2020/data/table?username=DE717OZ104&password=Steinwerder*2023&name=61241-0006&area=all&compress=false&transpose=false&startyear=2022&endyear=2022&timeslices=&regionalvariable=&regionalkey=&classifyingvariable1=&classifyingkey1=&classifyingvariable2=&classifyingkey2=&classifyingvariable3=&classifyingkey3=&job=false&stand=&language=de")),
     #"Converted to Table" = Table.FromRecords({Source}),
     #"Expanded Object" = Table.ExpandRecordColumn(#"Converted to Table", "Object", {"Content", "Structure"}, {"Object.Content", "Object.Structure"}),
     Content = #"Expanded Object"{0}[Object.Content],
@@ -13,9 +13,7 @@ let
     #"Converted to Table1" = Table.FromList(#"Split Text", Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     #"Entfernte oberste Zeilen" = Table.Skip(#"Converted to Table1",7),
     #"Höher gestufte Header" = Table.PromoteHeaders(#"Entfernte oberste Zeilen", [PromoteAllScalars=true]),
-    #"Geänderter Typ" = Table.TransformColumnTypes(#"Höher gestufte Header", {
-        {";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;Dezember", type text}
-        }),
+    #"Geänderter Typ" = Table.TransformColumnTypes(#"Höher gestufte Header", {{";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;Dezember", type text}}),
     #"Spalte nach Trennzeichen teilen" = Table.SplitColumn(#"Geänderter Typ", ";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;Dezember", Splitter.SplitTextByDelimiter(";", QuoteStyle.Csv), {
         ";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;Deze", 
         ";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;De.1", 
@@ -43,9 +41,9 @@ let
         {";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;De.8", type number}, 
         {";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;De.9", type number}, 
         {";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;D.10", type number}, 
-        {";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;D.11", type text}, 
-        {";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;D.12", type text}, 
-        {";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;D.13", type text}
+        {";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;D.11", type number}, 
+        {";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;D.12", type number}, 
+        {";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;D.13", type number}
         }),
     #"Umbenannte Spalten" = Table.RenameColumns(#"Geänderter Typ1",{
         {";;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;Deze", "Gewerbliche Produkte"}, 
