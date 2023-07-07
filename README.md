@@ -1,6 +1,6 @@
 # DestatisData-to-PowerBI
 
-Table `61111-0001`
+Destatis Table-Code `61111-0001`
 
 Power Query Formula
 ```
@@ -72,4 +72,4 @@ in
     #"Umbenannte Spalten2"
 ```
 
-Table ´46321-0016´
+Destatis Table-Code ´46321-0016´
