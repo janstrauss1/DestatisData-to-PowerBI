@@ -138,7 +138,7 @@ let
         {";;;;2011;2012;2013;2014;2015;2016;2017;2018;2019;2020;2021;2022.15", "2021"},  
         {";;;;2011;2012;2013;2014;2015;2016;2017;2018;2019;2020;2021;2022.16", "2022"}
         }),
-    #"Entpivotierte Spalten" = Table.UnpivotOtherColumns(#"Umbenannte Spalten", {"Güterverzeichnis", "Produktnamen"}, "Attribut", "Wert"),
+    #"Entpivotierte Spalten" = Table.UnpivotOtherColumns(#"Umbenannte Spalten", {"Güterverzeichnis", "Produktnamen", "Hafen_ID", "Ort"}, "Jahr", "Wert"),
     #"Umbenannte Spalten1" = Table.RenameColumns(#"Entpivotierte Spalten",{{"Attribut", "Monate"}}),
     #"Geänderter Typ2" = Table.TransformColumnTypes(#"Umbenannte Spalten1",{{"Wert", type number}}),
     #"Entfernte Fehler" = Table.RemoveRowsWithErrors(#"Geänderter Typ2", {"Wert"}),
