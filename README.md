@@ -2,6 +2,8 @@
 
 ## Getting Data from Federal Statistical Office of Germany (Statistisches Bundesamt, Destatis)
 
+### Erzeugerpreisindex gewerblicher Produkte: Deutschland, Monate, Güterverzeichnis (GP2009 2-6-Steller Hierarchie)
+Example from https://www.yodabi.com/destatis-genesis-and-power-bi/
 
 Destatis Table-Code `61241-0006`
 
