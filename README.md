@@ -226,7 +226,7 @@ let
         }),
     #"Umbenannte Spalten" = Table.RenameColumns(#"Geänderter Typ1",{
         {";;;Januar;Januar;Februar;Februar;März;März;April;April;Mai;Mai;Juni;Juni;Juli;Juli;August;August;September;September;Oktober;Oktober;November;November;Dezember;Dezember.01", "Jahr"}, 
-        {";;;Januar;Januar;Februar;Februar;März;März;April;April;Mai;Mai;Juni;Juni;Juli;Juli;August;August;September;September;Oktober;Oktober;November;November;Dezember;Dezember.02", "Landcode"}, 
+        {";;;Januar;Januar;Februar;Februar;März;März;April;April;Mai;Mai;Juni;Juni;Juli;Juli;August;August;September;September;Oktober;Oktober;November;November;Dezember;Dezember.02", "Code"}, 
         {";;;Januar;Januar;Februar;Februar;März;März;April;April;Mai;Mai;Juni;Juni;Juli;Juli;August;August;September;September;Oktober;Oktober;November;November;Dezember;Dezember.03", "Land"}, 
         {";;;Januar;Januar;Februar;Februar;März;März;April;April;Mai;Mai;Juni;Juni;Juli;Juli;August;August;September;September;Oktober;Oktober;November;November;Dezember;Dezember.04", "Januar_Ausfuhr"}, 
         {";;;Januar;Januar;Februar;Februar;März;März;April;April;Mai;Mai;Juni;Juni;Juli;Juli;August;August;September;September;Oktober;Oktober;November;November;Dezember;Dezember.05", "Januar_Einfuhr"}, 
@@ -253,13 +253,12 @@ let
         {";;;Januar;Januar;Februar;Februar;März;März;April;April;Mai;Mai;Juni;Juni;Juli;Juli;August;August;September;September;Oktober;Oktober;November;November;Dezember;Dezember.26", "Dezember_Ausfuhr"}, 
         {";;;Januar;Januar;Februar;Februar;März;März;April;April;Mai;Mai;Juni;Juni;Juli;Juli;August;August;September;September;Oktober;Oktober;November;November;Dezember;Dezember.27", "Dezember_Einfuhr"}         
         }),
-    #"Entpivotierte Spalten" = Table.UnpivotOtherColumns(#"Umbenannte Spalten", {"Güterverzeichnis", "Produktnamen", "Hafen_ID", "Ort"}, "Jahr", "Wert"),
-    #"Umbenannte Spalten1" = Table.RenameColumns(#"Entpivotierte Spalten",{{"Jahr", "Jahr"}}),
-    #"Geänderter Typ2" = Table.TransformColumnTypes(#"Umbenannte Spalten1",{{"Wert", type number}}),
-    #"Entfernte Fehler" = Table.RemoveRowsWithErrors(#"Geänderter Typ2", {"Wert"}),
-    #"Umbenannte Spalten2" = Table.RenameColumns(#"Entfernte Fehler",{{"Produktnamen", "Produktbeschreibung"}})
+    #"Removed Top Rows" = Table.Skip(#"Umbenannte Spalten",2),
+    #"Removed Bottom Rows" = Table.RemoveLastN(#"Removed Top Rows",4),
+    #"Entpivotierte Spalten" = Table.UnpivotOtherColumns(#"Removed Bottom Rows", {"Jahr", "Code", "Land"}, "Attribut", "Wert"),
+    #"Split Column by Delimiter" = Table.SplitColumn(#"Entpivotierte Spalten", "Attribut", Splitter.SplitTextByDelimiter("_", QuoteStyle.Csv), {"Monat", "Attribut"})
 in
-    #"Umbenannte Spalten2"
+    #"Split Column by Delimiter"
 ```
 
 ## Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Land, Warenverzeichnis (8-Steller)
