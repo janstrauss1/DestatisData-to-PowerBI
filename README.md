@@ -10,7 +10,7 @@ Destatis Table-Code `61241-0006`
 Power Query Formula
 ```
 let
-    Source = Json.Document(Web.Contents("https://www-genesis.destatis.de/genesisWS/rest/2020/data/table?username=DE717OZ104&password=Steinwerder*2023&name=61241-0006&area=all&compress=false&transpose=false&startyear=2022&endyear=2022&timeslices=&regionalvariable=&regionalkey=&classifyingvariable1=&classifyingkey1=&classifyingvariable2=&classifyingkey2=&classifyingvariable3=&classifyingkey3=&job=false&stand=&language=de")),
+    Source = Json.Document(Web.Contents("https://www-genesis.destatis.de/genesisWS/rest/2020/data/table?username=<USERNAME>&password=<PASSWORD>&name=61241-0006&area=all&compress=false&transpose=false&startyear=2022&endyear=2022&timeslices=&regionalvariable=&regionalkey=&classifyingvariable1=&classifyingkey1=&classifyingvariable2=&classifyingkey2=&classifyingvariable3=&classifyingkey3=&job=false&stand=&language=de")),
     #"Converted to Table" = Table.FromRecords({Source}),
     #"Expanded Object" = Table.ExpandRecordColumn(#"Converted to Table", "Object", {"Content", "Structure"}, {"Object.Content", "Object.Structure"}),
     Content = #"Expanded Object"{0}[Object.Content],
@@ -80,7 +80,7 @@ Destatis Table-Code `46321-0016`
 
 ```
 let
-    Source = Json.Document(Web.Contents("https://www-genesis.destatis.de/genesisWS/rest/2020/data/table?username=DE717OZ104&password=Steinwerder*2023&name=46321-0016&area=all&compress=false&transpose=false&startyear=2011&endyear=2022&timeslices=&regionalvariable=&regionalkey=&classifyingvariable1=&classifyingkey1=&classifyingvariable2=&classifyingkey2=&classifyingvariable3=&classifyingkey3=&job=false&stand=&language=de")),
+    Source = Json.Document(Web.Contents("https://www-genesis.destatis.de/genesisWS/rest/2020/data/table?username=<USERNAME>&password=<PASSWORD>&name=46321-0016&area=all&compress=false&transpose=false&startyear=2011&endyear=2022&timeslices=&regionalvariable=&regionalkey=&classifyingvariable1=&classifyingkey1=&classifyingvariable2=&classifyingkey2=&classifyingvariable3=&classifyingkey3=&job=false&stand=&language=de")),
     #"Converted to Table" = Table.FromRecords({Source}),
     #"Expanded Object" = Table.ExpandRecordColumn(#"Converted to Table", "Object", {"Content", "Structure"}, {"Object.Content", "Object.Structure"}),
     Content = #"Expanded Object"{0}[Object.Content],
@@ -157,7 +157,7 @@ Destatis Table-Code: `51000-0021`
 
 ```
 let
-    Source = Json.Document(Web.Contents("https://www-genesis.destatis.de/genesisWS/rest/2020/data/table?username=DE717OZ104&password=Steinwerder*2023&name=51000-0021&area=all&compress=false&transpose=false&startyear=2008&endyear=2023&timeslices=&regionalvariable=&regionalkey=&classifyingvariable1=&classifyingkey1=&classifyingvariable2=&classifyingkey2=&classifyingvariable3=&classifyingkey3=&job=false&stand=&language=de")),
+    Source = Json.Document(Web.Contents("https://www-genesis.destatis.de/genesisWS/rest/2020/data/table?username=<USERNAME>&password=<PASSWORD>&name=51000-0021&area=all&compress=false&transpose=false&startyear=2008&endyear=2023&timeslices=&regionalvariable=&regionalkey=&classifyingvariable1=&classifyingkey1=&classifyingvariable2=&classifyingkey2=&classifyingvariable3=&classifyingkey3=&job=false&stand=&language=de")),
     #"Converted to Table" = Table.FromRecords({Source}),
     #"Expanded Object" = Table.ExpandRecordColumn(#"Converted to Table", "Object", {"Content", "Structure"}, {"Object.Content", "Object.Structure"}),
     Content = #"Expanded Object"{0}[Object.Content],
