@@ -256,9 +256,11 @@ let
     #"Removed Top Rows" = Table.Skip(#"Umbenannte Spalten",2),
     #"Removed Bottom Rows" = Table.RemoveLastN(#"Removed Top Rows",4),
     #"Entpivotierte Spalten" = Table.UnpivotOtherColumns(#"Removed Bottom Rows", {"Jahr", "Code", "Land"}, "Attribut", "Wert"),
-    #"Split Column by Delimiter" = Table.SplitColumn(#"Entpivotierte Spalten", "Attribut", Splitter.SplitTextByDelimiter("_", QuoteStyle.Csv), {"Monat", "Attribut"})
+    #"Filtered Rows" = Table.SelectRows(#"Entpivotierte Spalten", each ([Jahr] = "2023")),
+    #"Split Column by Delimiter" = Table.SplitColumn(#"Filtered Rows", "Attribut", Splitter.SplitTextByDelimiter("_", QuoteStyle.Csv), {"Monat", "Attribut"}),
+    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Split Column by Delimiter", {"Wert"})
 in
-    #"Split Column by Delimiter"
+    #"Removed Errors"
 ```
 
 ## Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Land, Warenverzeichnis (8-Steller)
