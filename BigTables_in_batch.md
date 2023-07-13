@@ -2,6 +2,10 @@
 ## Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Land, Warenverzeichnis (8-Steller)
 Destatis Table-Code: `51000-0017`
 
+If you change the job parameter to `job=true` the data request is initiated and copying the request link directly into ones brower one receives a message like `"Der Bearbeitungsauftrag wurde erstellt. Die Tabelle kann in Kürze als Ergebnis mit folgendem Namen abgerufen werden: 51000-0017_238381537"`.
+
+Yet, how can one automate the request once the data table is available?
+
 ```
 let
     Source = Json.Document(Web.Contents("https://www-genesis.destatis.de/genesisWS/rest/2020/data/table?username=DE717OZ104&password=Steinwerder*2023&name=51000-0017&area=all&compress=false&transpose=false&startyear=2006&endyear=2023&timeslices=&regionalvariable=&regionalkey=&classifyingvariable1=&classifyingkey1=&classifyingvariable2=&classifyingkey2=&classifyingvariable3=&classifyingkey3=&job=true&stand=&language=de")),
