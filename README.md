@@ -262,3 +262,5 @@ let
 in
     #"Removed Errors"
 ```
+## Find GeoCode of countries for visual mapping of transport flows
+https://stackoverflow.com/a/59484986
