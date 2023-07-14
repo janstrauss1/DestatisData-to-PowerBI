@@ -268,3 +268,18 @@ in
 ## Find GeoCode of countries for visual mapping of transport flows
 + https://stackoverflow.com/a/59484986
 + https://www.dalesandro.net/mapping-continents-and-countries-in-power-bi/
+
+```
+let
+    Source = Xml.Tables(Web.Contents("http://dev.virtualearth.net/REST/v1/Locations/)?o=xml&key=AltjrZWvNOGAYC0VVFZashw0z7wfUvJxT0UzIxIx5NC0n_sGqQneRNsRSy9reNvo")),
+    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Copyright", type text}, {"BrandLogoUri", type text}, {"StatusCode", Int64.Type}, {"StatusDescription", type text}, {"AuthenticationResultCode", type text}, {"TraceId", type text}}),
+    ResourceSets = #"Changed Type"{0}[ResourceSets],
+    ResourceSet = ResourceSets{0}[ResourceSet],
+    #"Changed Type1" = Table.TransformColumnTypes(ResourceSet,{{"EstimatedTotal", Int64.Type}}),
+    Resources = #"Changed Type1"{0}[Resources],
+    #"Expanded Location" = Table.ExpandTableColumn(Resources, "Location", {"Name", "Point", "BoundingBox", "EntityType", "Address", "Confidence", "MatchCode", "GeocodePoint"}, {"Location.Name", "Location.Point", "Location.BoundingBox", "Location.EntityType", "Location.Address", "Location.Confidence", "Location.MatchCode", "Location.GeocodePoint"}),
+    #"Location Point" = #"Expanded Location"{0}[Location.Point],
+    #"Changed Type2" = Table.TransformColumnTypes(#"Location Point",{{"Latitude", type number}, {"Longitude", type number}})
+in
+    #"Changed Type2"
+```
